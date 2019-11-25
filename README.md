@@ -1,24 +1,14 @@
-# README
+- user
+t.string "name"
+t.string "email"
+t.string "password_digest"
+t.text "profile"
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- task
+t.string "task_name"
+t.text "detail"
+t.datetime "deadline"
+t.text "status"
+t.text "priority"
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+-label（いらないかも）
