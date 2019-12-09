@@ -29,6 +29,10 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[0]).to have_content 'new_task'
         expect(task_list[1]).to have_content 'task'
       end
+      it 'タスクが終了期限順に並んでいるかのテスト'do
+        visit tasks_path(sort_expired: "true")
+        expect(Task.order("deadline").map(&:id))
+      end
     end
   end
 
