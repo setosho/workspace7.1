@@ -1,5 +1,14 @@
 <p id="notice"><%= notice %></p>
-
+<%= form_with( model:Task.new, method: :get, local: true ) do |f| %>
+  <%= f.label :task_name_key, ('sarch_task_name') %>
+  <%= f.text_field :task_name_key %>
+  <%= f.label :status_key, ('sarch_status') %>
+  <%= f.text_field :status_key %>
+  <%= f.hidden_field :search, value: 'true' %>
+  <br>
+  <%= f.submit ('検索') %>
+<% end %>
+<br>
 <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
 
 <h1>Tasks</h1>

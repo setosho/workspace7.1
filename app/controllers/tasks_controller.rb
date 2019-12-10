@@ -5,10 +5,15 @@ class TasksController < ApplicationController
   def index
     if params[:sort_expired]
       @tasks = Task.order('deadline')
-    else
+    elsif
       @tasks = Task.order(created_at: :desc)
+    elsif
+      @tasks = Task.where('task_name LIKE ? AND status LIKE ?', "%#{params[:task][:task_name_key]}%", "%#{params[:task][:status_key]}%")
+      @tasks = Task.search(params[:task][:task_name_key],params[:task][:status_key])
     end
   end
+
+
 
   # GET /tasks/1
   def show
@@ -57,6 +62,6 @@ class TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:task_name, :detail, :deadline)
+      params.require(:task).permit(:task_name, :detail, :deadline, :status)
     end
 end
