@@ -33,6 +33,10 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit tasks_path(sort_expired: "true")
         expect(Task.order("deadline").map(&:id))
       end
+      it 'タスクが優先順位で並んでいるかのテスト' do
+        visit tasks_path(sort_priority: "true")
+        expect(Task.order(priority: :desc).map(&:id))
+      end
     end
   end
 
@@ -45,6 +49,10 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_button '登録する'
         expect(page).to have_content 'タスクの名前'
         expect(page).to have_content '詳細'
+      end
+      it '優先度が登録できているか' do
+        visit tasks_path(sort_priority: "true")
+        expect(page).to have_content 'not_entered'
       end
     end
   end
