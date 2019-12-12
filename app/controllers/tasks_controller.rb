@@ -13,6 +13,7 @@ class TasksController < ApplicationController
       @tasks = Task.where('task_name LIKE ? AND status LIKE ?', "%#{params[:task][:task_name_key]}%", "%#{params[:task][:status_key]}%")
       @tasks = Task.search(params)
     end
+    @tasks = @tasks.page(params[:page]).per(7)
   end
 
 
