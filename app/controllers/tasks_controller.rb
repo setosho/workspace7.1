@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks
   def index
     if params[:sort_expired]
-      @tasks = Task.order('deadline')
+      @tasks = Task.order(deadline: :asc)
     elsif params[:sort_priority]
       @tasks = Task.order(priority: :desc)
     elsif params[:task] == nil
