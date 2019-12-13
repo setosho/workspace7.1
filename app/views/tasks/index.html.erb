@@ -3,7 +3,7 @@
   <%= f.label :task_name_key, ('sarch_task_name') %>
   <%= f.text_field :task_name_key %>
   <%= f.label :status_key, ('sarch_status') %>
-  <%= f.text_field :status_key %>
+  <%= f.select :status_key,Task.statuses.keys.to_a, {} %>
   <%= f.hidden_field :search, value: 'true' %>
   <br>
   <%= f.submit ('検索') %>
