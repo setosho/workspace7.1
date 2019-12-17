@@ -28,10 +28,8 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.radio_button :status, :not_started %> 未着手
-    <%= form.radio_button :status, :underway %> 着手中
-   <%= form.radio_button :status, :complete %> 完了
-  </div>
+    <%= form.select :status, [[t('not_started'), t('not_started')],
+                              [t('underway'), t('underway')],[t('complete'), t('complete')]] %>
 
   <div class="field">
     <%= form.label :priority %>
