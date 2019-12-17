@@ -28,7 +28,9 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status,Task.statuses.keys.to_a, {} %>
+    <%= form.radio_button :status, :not_started %> 未着手
+    <%= form.radio_button :status, :underway %> 着手中
+   <%= form.radio_button :status, :complete %> 完了
   </div>
 
   <div class="field">

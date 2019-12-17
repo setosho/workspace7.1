@@ -5,5 +5,5 @@ class Task < ApplicationRecord
                                   "%#{params[:task][:task_name_key]}%",
                                   "%#{params[:task][:status_key]}%")}
   enum priority: {not_entered: 0, low: 1, medium: 2, high: 3}
-  enum status: {未着手: 0, 着手中: 1, 完了: 2,}
+  enum status: {not_started: 0, underway: 1, complete: 2}
 end
