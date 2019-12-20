@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_12_14_095310) do
     t.datetime "updated_at", null: false
     t.datetime "deadline"
     t.integer "priority", default: 0
-    t.string "status"
+    t.integer "status", default: 0
     t.index ["task_name"], name: "index_tasks_on_task_name"
   end
 

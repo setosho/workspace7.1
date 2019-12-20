@@ -28,8 +28,7 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, [[t('not_started'), t('not_started')],
-                              [t('underway'), t('underway')],[t('complete'), t('complete')]] %>
+    <%= form.select :status, {未着手: "未着手", 着手中: "着手中",完了: "完了"} %>
 
   <div class="field">
     <%= form.label :priority %>
