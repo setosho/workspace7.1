@@ -22,6 +22,6 @@ RSpec.describe 'タスク管理機能', type: :model do
     FactoryBot.create(:second_task, status: "完了")
     FactoryBot.create(:third_task, status: "着手中")
     expect_task = FactoryBot.create(:second_task, status: "完了")
-    result = Task.search(task: {task_name_key: "Factoryで作ったタスクネーム２", status_key: "完了"})
+    result = Task.where(task: {task_name_key: "Factoryで作ったタスクネーム２", status_key: "完了"})
   end
 end
