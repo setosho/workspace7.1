@@ -10,7 +10,8 @@ class TasksController < ApplicationController
     elsif params[:task] == nil
       @tasks = Task.order(created_at: :desc)
     elsif params[:task][:search]
-      @tasks = Task.where('task_name LIKE ? AND status', "%#{params[:task][:task_name_key]}%", "#{params[:task][:status_key]}")
+      @tasks = Task.where('task_name LIKE ?', "%#{params[:task][:task_name_key]}%")
+      @tasks = Task.where(status: task_params[:status])
       @tasks = Task.search(params)
     end
     @tasks = @tasks.page(params[:page]).per(7)
