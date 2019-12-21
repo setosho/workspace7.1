@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 <%= form_with( model:Task.new, method: :get, local: true ) do |f| %>
-  <%= f.label :task_name_key, ('sarch_task_name') %>
+  <%= f.label :task_name_key, ('task_name_search') %>
   <%= f.text_field :task_name_key %>
-  <%= f.label :status_key, ('sarch_status') %>
-  <%= f.select :status, [[],["未着手", 0 ],["着手中", 1 ],["完了", 2 ]] %>
+  <%= f.label :status_key, ('status_search') %>
+  <%= f.select :status, [["", ""],["未着手", 1 ],["着手中", 2 ],["完了", 3 ]] %>
   <%= f.hidden_field :search, value: 'true' %>
   <br>
   <%= f.submit ('検索') %>
