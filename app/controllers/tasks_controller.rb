@@ -9,11 +9,11 @@ class TasksController < ApplicationController
       @tasks = Task.order(priority: :desc)
     elsif params[:task] == nil
       @tasks = Task.order(created_at: :desc)
-    elsif params[:task][:task_name].present? && params[:task][:status].present?
+    elsif params[:task][:task_name_key].present? && params[:task][:status].present?
       @tasks = Task.where('task_name LIKE ?', "%#{params[:task][:task_name_key]}%").where(status: task_params[:status])
-    elsif params[:task][:task_name].present? && params[:task][:status] == ""
+    elsif params[:task][:task_name_key].present? && params[:task][:status] == ""
       @tasks = Task.where('task_name LIKE ?', "%#{params[:task][:task_name_key]}%")
-    else params[:task][:task_name].blank? && params[:task][:status].present?
+    else params[:task][:task_name_key].blank? && params[:task][:status].present?
       @tasks = Task.where(status: task_params[:status])
     end
     @tasks = @tasks.page(params[:page]).per(7)
