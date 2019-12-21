@@ -19,6 +19,14 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'task'
         # expectの結果が true ならテスト成功、false なら失敗として結果が出力される
       end
+      it '検索機能でタスクを絞り込めるかどうかのテスト' do
+        visit tasks_path
+        fill_in 'sarch_task_name', with: 'タスク名'
+        select '完了', from:'sarch_status'
+        click_on '検索'
+        expect(page).to have_content 'タスク名'
+        expect(page).to have_content '完了'
+      end
     end
 
     context '複数のタスクを作成した場合' do
