@@ -19,17 +19,25 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'task'
         # expectの結果が true ならテスト成功、false なら失敗として結果が出力される
       end
-      it '検索機能でタスクを絞り込めるかどうかのテスト' do
+      it '検索機能でタスクを絞り込めるかどうかのテストtask_name' do
         visit tasks_path
         fill_in 'task_name_search', with: 'task'
         click_on '検索'
         expect(page).to have_content 'task'
       end
-      it '検索機能でタスクを絞り込めるかどうかのテスト2' do
+      it '検索機能でタスクを絞り込めるかどうかのテストstatus' do
         visit tasks_path
-        select '未着手', from:'status_search'
+        select '未着手', from:'task_status'
         click_on '検索'
         expect(page).to have_content '未着手'
+      end
+      it '検索機能でタスクを絞り込めるかどうかのテスト両方' do
+        visit tasks_path
+        fill_in 'task_name_search', with: 'task'
+        select '完了', from:'task_status'
+        click_on '検索'
+        expect(page).to have_content 'task'
+        expect(page).to have_content '完了'
       end
     end
 
