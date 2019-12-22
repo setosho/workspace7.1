@@ -66,9 +66,11 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit new_task_path
         fill_in 'task[task_name]',with:'タスクの名前'
         fill_in 'task[detail]',with:'詳細'
+        select "着手中", from:"task_status"
         click_button '登録する'
         expect(page).to have_content 'タスクの名前'
         expect(page).to have_content '詳細'
+        expect(page).to have_content '着手中'
       end
       it '優先度が登録できているか' do
         visit tasks_path(sort_priority: "true")
