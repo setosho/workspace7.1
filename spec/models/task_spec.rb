@@ -16,4 +16,12 @@ RSpec.describe 'タスク管理機能', type: :model do
     task = Task.new(task_name: '成功テスト', detail: '成功テスト')
     expect(task).to be_valid
   end
+
+  it 'タスクを絞り込めるかどうかのテスト' do
+    FactoryBot.create(:task)
+    FactoryBot.create(:second_task, status: "完了")
+    FactoryBot.create(:third_task, status: "着手中")
+    expect_task = FactoryBot.create(:second_task, status: "完了")
+    result = Task.where(task: {task_name_search: "Factoryで作ったタスクネーム２", status_search: "完了"})
+  end
 end

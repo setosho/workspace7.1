@@ -19,6 +19,26 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'task'
         # expectの結果が true ならテスト成功、false なら失敗として結果が出力される
       end
+      it '検索機能でタスクを絞り込めるかどうかのテストtask_name' do
+        visit tasks_path
+        fill_in 'task_name_search', with: 'task'
+        click_on '検索'
+        expect(page).to have_content 'task'
+      end
+      it '検索機能でタスクを絞り込めるかどうかのテストstatus' do
+        visit tasks_path
+        select '未着手', from:'task_status'
+        click_on '検索'
+        expect(page).to have_content '未着手'
+      end
+      it '検索機能でタスクを絞り込めるかどうかのテスト両方' do
+        visit tasks_path
+        fill_in 'task_name_search', with: 'task'
+        select '完了', from:'task_status'
+        click_on '検索'
+        expect(page).to have_content 'task'
+        expect(page).to have_content '完了'
+      end
     end
 
     context '複数のタスクを作成した場合' do
@@ -29,6 +49,14 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[0]).to have_content 'new_task'
         expect(task_list[1]).to have_content 'task'
       end
+      it 'タスクが終了期限順に並んでいるかのテスト' do
+        visit tasks_path(sort_expired: "true")
+        expect(Task.order("deadline").map(&:id))
+      end
+      it 'タスクが優先順位で並んでいるかのテスト' do
+        visit tasks_path(sort_priority: "true")
+        expect(Task.order(priority: :desc).map(&:id))
+      end
     end
   end
 
@@ -38,9 +66,15 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit new_task_path
         fill_in 'task[task_name]',with:'タスクの名前'
         fill_in 'task[detail]',with:'詳細'
+        select "着手中", from:"task_status"
         click_button '登録する'
         expect(page).to have_content 'タスクの名前'
         expect(page).to have_content '詳細'
+        expect(page).to have_content '着手中'
+      end
+      it '優先度が登録できているか' do
+        visit tasks_path(sort_priority: "true")
+        expect(page).to have_content 'not_entered'
       end
     end
   end

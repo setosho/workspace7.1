@@ -3,8 +3,23 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @tasks = Task.all.order('created_at DESC')
+    if params[:sort_expired]
+      @tasks = Task.order(deadline: :asc)
+    elsif params[:sort_priority]
+      @tasks = Task.order(priority: :desc)
+    elsif params[:task] == nil
+      @tasks = Task.order(created_at: :desc)
+    elsif params[:task][:task_name_key].present? && params[:task][:status].present?
+      @tasks = Task.where('task_name LIKE ?', "%#{params[:task][:task_name_key]}%").where(status: task_params[:status])
+    elsif params[:task][:task_name_key].present? && params[:task][:status] == ""
+      @tasks = Task.where('task_name LIKE ?', "%#{params[:task][:task_name_key]}%")
+    elsif params[:task][:task_name_key].empty? && params[:task][:status].present?
+      @tasks = Task.where(status: task_params[:status])
+    end
+    @tasks = @tasks.page(params[:page]).per(7)
   end
+
+
 
   # GET /tasks/1
   def show
@@ -53,6 +68,6 @@ class TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:task_name, :detail)
+      params.require(:task).permit(:task_name, :detail, :deadline, :status, :priority)
     end
 end
